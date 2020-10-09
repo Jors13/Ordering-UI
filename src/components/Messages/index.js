@@ -128,14 +128,14 @@ export const MessagesUI = (props) => {
         </Image>
         <div>
           <p>{order.business?.name}</p>
-          <p>{t('ONLINE', 'Online')}</p>
+          <p>Online</p>
         </div>
       </HeaderProfile>
       {!messages.loading ? (
         <Chat>
           <MessageConsole>
             <BubbleConsole>
-              {t('ORDER_PLACED_FOR', 'Order placed for')} {order.created_at} {t('VIA', 'via')} {order.app_id}
+            Order placed for {order.created_at} via {order.app_id}
               <p>{moment(order.created_at, 'YYYY-MM-DD hh:mm:ss').fromNow()}</p>
             </BubbleConsole>
           </MessageConsole>
@@ -144,13 +144,13 @@ export const MessagesUI = (props) => {
               {message.type === 1 && (
                 message.change?.attribute !== 'driver_id' ? (
                   <BubbleConsole>
-                    {t('ORDER', 'Order')} <strong>{message.change.attribute} </strong> {t('CHANGED_FROM', 'Changed from')} {' '}
+                  Order <strong>{message.change.attribute} </strong> Changed from {' '}
                     {message.change.old !== null && (
                       <>
                         <strong>{t(getStatus(parseInt(message.change.old, 10)))} </strong>
                       </>
                     )}
-                    <> {t('TO', 'to')} {t(getStatus(parseInt(message.change.new, 10)))} </>
+                    <> to {t(getStatus(parseInt(message.change.new, 10)))} </>
                     <p>
                       {
                         moment(message.created_at, 'YYYY-MM-DD hh:mm:ss').fromNow()
@@ -159,7 +159,7 @@ export const MessagesUI = (props) => {
                   </BubbleConsole>
                 ) : (
                   <BubbleConsole>
-                    <strong>{message.driver.name} {' '} {message.driver?.lastname && message.driver.lastname}</strong> {t('WAS_ASSIGNED_AS_DRIVER', 'was assigned as driver')} {message.comment && (<><br /> {message.comment.length}</>)}
+                    <strong>{message.driver.name} {' '} {message.driver?.lastname && message.driver.lastname}</strong> was assigned as driver {message.comment && (<><br /> {message.comment.length}</>)}
                     <p>{moment(message.created_at, 'YYYY-MM-DD hh:mm:ss').fromNow()}</p>
                   </BubbleConsole>
                 )
@@ -194,20 +194,20 @@ export const MessagesUI = (props) => {
           ))}
         </Chat>
       ) : (
-        <span>{t('LOADING_MESSAGES', 'Loading Messages...')}</span>
+        <span>Loading Messages...</span>
       )}
       <SendForm>
         <div>
           <input name='business' type='checkbox' onChange={handleCanRead} defaultChecked={canRead.business} />
-          <label>{t('BUSINESS', 'Business')}</label>
+          <label>Business</label>
           <input name='administrator' type='checkbox' onChange={handleCanRead} defaultChecked={canRead.administrator} />
-          <label>{t('ADMINISTRATOR', 'Administrator')}</label>
+          <label>Administrator</label>
           <input name='driver' type='checkbox' onChange={handleCanRead} defaultChecked={canRead.driver} />
-          <label>{t('DRIVER', 'Driver')}</label>
+          <label>Driver</label>
         </div>
         <Send onSubmit={handleSubmit(onSubmit)} noValidate>
           <Input
-            placeholder={t('WRITE_A_MESSAGE', 'Write a message')}
+            placeholder='Write a message'
             onChange={onChangeMessage}
             name='message'
             ref={register({
@@ -226,7 +226,7 @@ export const MessagesUI = (props) => {
           </label>
           {image && (
             <Button circle onClick={removeImage} name='delete'>
-              {t('DELETE', 'X')}
+            X
             </Button>
           )}
           <Button
@@ -235,9 +235,9 @@ export const MessagesUI = (props) => {
             disabled={(errors.message?.message && !image)}
           >
             <FiSend />
-            {t('SEND', 'Send')}
+          Send
           </Button>
-          {sendMessage.loading && <span> {t('SENDING_MESSAGE', 'Sending Message...')}</span>}
+          {sendMessage.loading && <span> Sending Message...</span>}
           {sendMessage.error && (
             <>
               <br />

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { FcCancel } from 'react-icons/fc'
 import { TiPencil } from 'react-icons/ti'
 import Skeleton from 'react-loading-skeleton'
-import { UserDetails as UserDetailsController, useLanguage } from 'ordering-components'
+import { UserDetails as UserDetailsController } from 'ordering-components'
 
 import {
   Container,
@@ -26,14 +26,13 @@ const UserDetailsUI = (props) => {
     handleChangeInput,
     onEditUserClick
   } = props
-  const [, t] = useLanguage()
 
   const { handleSubmit, register, errors } = useForm()
 
   const inputs = [
-    { name: 'name', placeholder: t('FIRST_NAME', 'Firstname'), requiredMessage: t('NAME_REQUIRED', 'Name is required'), type: 'text' },
-    { name: 'email', placeholder: t('EMAIL', 'Email'), requiredMessage: t('EMAIL_REQUIRED', 'Email is required'), type: 'text' },
-    { name: 'cellphone', placeholder: t('CELLPHONE', 'Cellphone'), requiredMessage: t('CELLPHONE_REQUIRED', 'Cellphone is required'), type: 'text' }
+    { name: 'name', placeholder: 'Firstname', requiredMessage: 'Name is required', type: 'text' },
+    { name: 'email', placeholder: 'Email', requiredMessage: 'Email is required', type: 'text' },
+    { name: 'cellphone', placeholder: 'Cellphone', requiredMessage: 'Cellphone is required', type: 'text' }
   ]
 
   return (
@@ -55,7 +54,7 @@ const UserDetailsUI = (props) => {
       {!((useValidationFields && validationFields.loading) || userState.loading) && userState.result && userState.result.result && (
         <Container>
           <Header>
-            <h1>{t('CUSTOMER_DETAILS', 'Customer Details')}</h1>
+            <h1>Customer Details</h1>
             {!userState.result.error && (useValidationFields || !validationFields.loading) && cartStatus !== 2 && (
               !isEdit ? (
                 <TiPencil className='edit' onClick={() => onEditUserClick()} />
@@ -88,7 +87,7 @@ const UserDetailsUI = (props) => {
                 type='submit'
                 disabled={Object.keys(formState.changes).length === 0}
               >
-                {formState.loading ? t('UPDATING', 'Updating...') : t('UPDATE', 'Update')}
+                {formState.loading ? 'Updating...' : 'Update'}
                 {!formState.loading && formState.result && formState.result.error && (<span>{formState.result.result}</span>)}
               </Button>
             </div>

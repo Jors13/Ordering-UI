@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useApi, useLanguage } from 'ordering-components'
+import { useApi } from 'ordering-components'
 import { CancelToken } from 'ordering-api-sdk'
 import { CmsError } from './styles'
 
@@ -17,7 +17,6 @@ export const Cms = (props) => {
   const [error, setError] = useState(null)
   const [ordering] = useApi()
   const requestsState = {}
-  const [, t] = useLanguage()
   /**
    * Method used to get the page by slug
    */
@@ -55,7 +54,7 @@ export const Cms = (props) => {
   return (
     <div>
       {
-        loading && t('LOADING', 'Loading...')
+        loading && 'Loading...'
       }
       {
         body && (
@@ -69,7 +68,7 @@ export const Cms = (props) => {
         (!loading && error) &&
           <CmsError>
             <h2>
-              {t('404', '404')}
+              404
             </h2>
             <p>
               {error}

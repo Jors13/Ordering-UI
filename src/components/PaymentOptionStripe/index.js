@@ -58,17 +58,17 @@ const PaymentOptionStripeUI = (props) => {
 
   return (
     <OptionStripeContainer>
-      {!token && <WarningMessage>{t('NEED_LOGIN_TO_USE', 'Sorry, you need to login to use this method')}</WarningMessage>}
+      {!token && <WarningMessage>Sorry, you need to login to use this method</WarningMessage>}
 
       {token && !cardsList.loading && cardsList.cards && cardsList.cards.length === 0 && (
         <CardItem>
-          <span>{t('NO_CARDS', 'No cards')}</span>
+          <span>No cards</span>
         </CardItem>
       )}
 
       {token && cardsList.error && cardsList.error.length > 0 && (
         cardsList.error.map((e, i) => (
-          <p key={i}>{t('ERROR', 'ERROR')}: [{e}]</p>
+          <p key={i}>ERROR: [{e}]</p>
         ))
       )}
 

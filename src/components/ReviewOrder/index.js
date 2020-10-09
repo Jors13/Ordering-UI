@@ -67,28 +67,28 @@ const ReviewOrderUI = (props) => {
   return (
     <ReviewOrderContainer onSubmit={handleSubmit(onSubmit)}>
       <Reviews>
-        <h2>{t('REVIEWS', 'Reviews')}:</h2>
+        <h2>Reviews:</h2>
         <Categories>
           <Category onMouseLeave={() => setHover(stars)}>
-            <p>{t('QUALITY', 'Quality of Product')}:</p>
+            <p>Quality of Product:</p>
             <Stars>
               <StarsComponent name='quality' />
             </Stars>
           </Category>
           <Category onMouseLeave={() => setHover(stars)}>
-            <p>{t('PUNCTUALITY', 'Punctuality')}:</p>
+            <p>Punctuality:</p>
             <Stars>
               <StarsComponent name='punctiality' />
             </Stars>
           </Category>
           <Category onMouseLeave={() => setHover(stars)}>
-            <p>{t('SERVICE', 'Service')}:</p>
+            <p>Service:</p>
             <Stars>
               <StarsComponent name='service' />
             </Stars>
           </Category>
           <Category onMouseLeave={() => setHover(stars)}>
-            <p>{t('PRODUCT_PACKAGING', 'Product Packaging')}:</p>
+            <p>Product Packaging:</p>
             <Stars>
               <StarsComponent name='packaging' />
             </Stars>
@@ -96,15 +96,15 @@ const ReviewOrderUI = (props) => {
         </Categories>
       </Reviews>
       <Comments>
-        <h2>{t('COMMENTS', 'Comments')}:</h2>
+        <h2>Comments:</h2>
         <Input
-          placeholder={t('COMMENTS', 'Comments')} name='comments' onChange={(e) => handleChangeInput(e)} ref={register({
-            required: t('FIELD_COMMENT_REQUIRED', 'The field comments is required')
+          placeholder='Comments' name='comments' onChange={(e) => handleChangeInput(e)} ref={register({
+            required: 'The field comments is required'
           })}
         />
       </Comments>
       <Send>
-        <Button color='primary' type='submit'>{t('SEND_REVIEW', 'Send a Review')}</Button>
+        <Button color='primary' type='submit'>Send a Review</Button>
       </Send>
       <Alert
         title={t('ORDER REVIEW')}
