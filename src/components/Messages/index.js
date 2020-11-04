@@ -250,7 +250,9 @@ export const MessagesUI = (props) => {
                     message.change?.attribute !== 'driver_id' ? (
                       <BubbleConsole>
                         {t('ORDER', 'Order')}
-                        <strong>{message.change.attribute} </strong>
+                        &nbsp;
+                        <strong>{message.change.attribute}</strong>
+                        &nbsp;
                         {t('CHANGED_FROM', 'Changed from')} {' '}
                         {message.change.old !== null && (
                           <>
@@ -280,7 +282,7 @@ export const MessagesUI = (props) => {
                   {message.type === 2 && user.id === message.author_id && (
                     <MessageCustomer>
                       <BubbleCustomer>
-                        <strong><MyName>{message.author.name} ({getLevel(message.author.level)})</MyName></strong>
+                        <MyName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</MyName>
                         {message.comment}
                         <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
                       </BubbleCustomer>
@@ -289,7 +291,7 @@ export const MessagesUI = (props) => {
                   {message.type === 3 && user.id === message.author_id && (
                     <MessageCustomer>
                       <BubbleCustomer name='image'>
-                        <strong><MyName>{message.author.name} ({getLevel(message.author.level)})</MyName></strong>
+                        <MyName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</MyName>
                         <ChatImage><img src={message.source} /></ChatImage>
                         {message.comment && (
                           <>
@@ -303,7 +305,7 @@ export const MessagesUI = (props) => {
                   {message.type === 2 && user.id !== message.author_id && (
                     <MessageBusiness>
                       <BubbleBusines>
-                        <strong><PartnerName>{message.author.name} ({getLevel(message.author.level)})</PartnerName></strong>
+                        <PartnerName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</PartnerName>
                         {message.comment}
                         <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
                       </BubbleBusines>
@@ -312,7 +314,7 @@ export const MessagesUI = (props) => {
                   {message.type === 3 && user.id !== message.author_id && (
                     <MessageBusiness>
                       <BubbleBusines name='image'>
-                        <strong><PartnerName>{message.author.name} ({getLevel(message.author.level)})</PartnerName></strong>
+                        <PartnerName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</PartnerName>
                         <ChatImage><img src={message.source} /></ChatImage>
                         {message.comment && (
                           <>
@@ -340,7 +342,15 @@ export const MessagesUI = (props) => {
               required: !image
             })}
           />
-          {!image && (
+          { image ?  
+            <WrapperDeleteImage>
+              <input
+                type="button"
+                value={t('X', 'X')}
+                onClick={removeImage}
+              />
+            </WrapperDeleteImage> 
+            :
             <SendImage htmlFor='chat_image'>
               <input
                 type='file'
@@ -351,17 +361,7 @@ export const MessagesUI = (props) => {
               />
               <BsCardImage />
             </SendImage>
-          )}
-          <WrapperDeleteImage>
-            {image && (
-              <Button
-                circle
-                onClick={removeImage}
-              >
-                {t('X', 'X')}
-              </Button>
-            )}
-          </WrapperDeleteImage>
+          }
           <WrapperSendMessageButton>
             <Button
               color='primary'

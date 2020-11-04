@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const AccordionSection = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   padding: 10px 0px;
   background: #FFF;
   border-bottom: 1px solid #D9D9D9;

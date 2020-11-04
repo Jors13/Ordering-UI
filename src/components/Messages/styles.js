@@ -104,19 +104,24 @@ export const Chat = styled.div`
   height: 55vh;
   flex-direction: column;
   padding: 20px;
+
+  @media only screen and (max-width: 480px) {
+    height: 66vh;
+  }
 `
 
 export const MessageConsole = styled.div`
   display: inline-flex;
-  justify-content: center;
+  justify-content: start;
   font-size: 0.8em;
-  border-radius: 97px;
+  border-radius: 40px 40px 40px 0px; 
 `
 
 export const MessageBusiness = styled.div`
   display: flex;
   flex-wrap: wrap;
   font-size: 0.8em;
+  word-spacing: 0.30em; 
 `
 
 export const MessageCustomer = styled.div`
@@ -125,24 +130,26 @@ export const MessageCustomer = styled.div`
   align-items: flex-end;
   flex-wrap: wrap;
   font-size: 0.8em;
+  word-spacing: 0.30em; 
 `
 
 export const BubbleConsole = styled.div`
-  border-radius: 97px;
+  border-radius: 40px 40px 40px 0px;
   padding: 15px;
-  max-width: 30%;
+  max-width: 55%;
   margin-bottom: 10px;
   background: #EFEFEF;
-  text-align: center;
+  text-align: left;
   height: auto;
   overflow: hidden;
   overflow-wrap: break-word;
+  word-spacing: 0.30em; 
 `
 
 export const BubbleBusines = styled.div`
-  border-radius: 97px 97px 97px 0px;
+  border-radius: 40px 40px 40px 0px;
   padding: 10px 25px 15px 25px;
-  max-width: 40%;
+  max-width: 55%;
   min-width: 80px;
   margin-bottom: 10px;
   background: #EFEFEF;
@@ -150,25 +157,25 @@ export const BubbleBusines = styled.div`
   overflow: hidden;
   overflow-wrap: break-word;
   &[name=image]{
-    border-radius: 60px 60px 60px 0px;
+    border-radius: 15px 15px 15px 0;
     padding: 10px 30px 15px 30px;
   }
 `
 
 export const BubbleCustomer = styled.div`
-  border-radius: 97px 97px 0px 97px;
+  border-radius: 40px 40px 0px 40px;
   padding: 10px 25px 15px 25px;
-  max-width: 40%;
+  max-width: 55%;
   min-width: 80px;
   margin-bottom: 10px;
   background: #D81212;
   color: white;
   overflow-wrap: break-word;
   overflow: hidden;
-
+  
   &[name=image]{
-    border-radius: 60px 60px 0px 60px;
-    padding: 10px 30px 15px 30px;
+    border-radius: 15px 15px 0px 15px;
+    padding: 10px 20px 15px 20px;
   }
 `
 
@@ -177,7 +184,6 @@ export const SkeletonBubbleCustomer = styled.div`
     border-radius: 97px 97px 0px 97px;
   }
 `
-
 export const SkeletonBubbleBusiness = styled.div`
   span{
     border-radius: 97px 97px 97px 0px;
@@ -194,13 +200,13 @@ export const ChatImage = styled.div`
 export const PartnerName = styled.p`
   margin-block-start: 0;
   margin-block-end: 0.2em;
-  font-size: 1.1em;
+  font-size: 1em;
 `
 
 export const MyName = styled.p`
     margin-block-start: 0;
     margin-block-end: 0.2em;
-    font-size: 1.1em;
+    font-size: 1em;
     text-align: right;
 `
 
@@ -220,21 +226,27 @@ export const SendForm = styled.div`
 `
 
 export const Send = styled.form`
-  align-items: center;
   display: flex;
-  margin-top: 3px;
   height: auto;
+  justify-content: center;
+  align-items: center;
   > input {
     flex: 1;
     padding-top: 10px;
     padding-bottom: 10px;
-  }      
+  }
+
+  @media only screen and (max-width: 480px) {
+  > input {
+    max-width: 55%;
+  }
+}     
 `
 
 export const SendImage = styled.label`
-  width: 25px;
-  height: 25px;
-  padding-left: 20px;
+  width: 45px;
+  height: 20px;
+  padding-left: 5px;
   padding-right: 5px;
   input {
     display: none;
@@ -244,16 +256,17 @@ export const SendImage = styled.label`
     width: 100%;
     height: 100%;
     cursor: pointer
-  }
+  }  
 `
 
 export const WrapperDeleteImage = styled.div`
-  margin-right: 10px;
-  margin-left: 10px;
-  button{
-    &:disabled {
-    cursor: not-allowed;
-    }
+  padding-left: 15px;
+  padding-right: 15px; 
+
+  input[type="button"]{
+    padding: 5px 10px 5px 10px;
+    border-radius: 20px;
+    border: none;
   }
 `
 
@@ -272,5 +285,15 @@ export const WrapperSendMessageButton = styled.div`
       opacity: 0.5;
       cursor: not-allowed;
     }
+  }
+
+  @media only screen and (max-width: 578px){
+      button{
+        font-size: 0;
+        > svg {
+          font-size: initial;
+          margin-right: 0 ;
+        }
+      }
   }
 `

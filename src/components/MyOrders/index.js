@@ -99,13 +99,13 @@ export const MyOrdersUI = (props) => {
                         <h5>
                         ${order.products.reduce((acc, cur) => acc + cur.price, 0)}
                         </h5>
-                        <p>{order.status === 0 ? t('ORDER_PENDING', 'pending') : ''}</p>
+                        {order.status === 0 && <p> {t('ORDER_PENDING', 'pending')}</p>}
                       </Price>
                     </Content>
                     <OpenOrder>
                       {/* <Link to={'/orders/' + order.id}> */}
                       <Button color='primary' onClick={() => handleGoToPage({ page: 'order_detail', params: { orderId: order.id } })}>
-                        {t('OPEN_ORDER', 'Open order')}
+                        {t('OPEN_ORDER', 'Open Order')}
                       </Button>
                       {/* </Link> */}
                     </OpenOrder>

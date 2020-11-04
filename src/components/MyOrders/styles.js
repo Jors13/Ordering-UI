@@ -50,12 +50,12 @@ export const Content = styled.div`
   padding: 10px;
 `
 export const Logo = styled.div`
-  width: 20%;
+  width: 80px;
+  height: 72px;
   > img {
     width: 100%;
     height: 100%;
-    border-radius: 16px;
-    object-fit: contain;
+    border-radius: 20%;
   }
 `
 export const BusinessInformation = styled.div`
@@ -85,23 +85,21 @@ export const BusinessInformation = styled.div`
 
 export const OpenOrder = styled.div`
   height: 15%;
-  width: 95%;
-  margin: auto;
-  > a {
-    > button {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  > button {
     width: 100%;
-    height: 100%;
-  }
   }
 `
 export const Price = styled.div`
   > h5 {
-    margin-block-end: 1em;
+    margin-block-end: 0;
     margin-block-start: 0;
   }
   > p {
     margin-block-end: 0;
-    margin-block-start: 1em;
+    margin-block-start: 0;
     color: #ff9300;
   }
 `
@@ -119,8 +117,7 @@ export const OrdersPast = styled.div`
   p{
     margin-block-end: 0;
     margin-block-start: 0;
-    color: #9A9A9A
-
+    color: #9A9A9A;
   }
 `
 export const IndividualOrderPast = styled.div`
@@ -128,12 +125,11 @@ export const IndividualOrderPast = styled.div`
   display: flex;
   height: 140px;
   justify-content: space-between;
-  border-bottom: 1px solid #ccc;
-  
+  border-bottom: 1px solid #ccc; 
 `
 export const OrderPastContent = styled.div`
   display: inline-flex;
-  width: 45%;
+  width: 70%;
   align-items: center;
   padding: 10px 0;
   img{
@@ -142,7 +138,7 @@ export const OrderPastContent = styled.div`
 export const Reorder = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 35%;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -153,7 +149,8 @@ export const Reorder = styled.div`
   }
   > button {
     margin: 5px 0;
-    width: 80%
+    width: 100%;
+    max-width: 110px;
   }
 `
 
