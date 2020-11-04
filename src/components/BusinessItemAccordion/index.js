@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { IoIosArrowDown, FiClock, BiStoreAlt, VscTrash } from 'react-icons/all'
-import { useOrder, useLanguage, useConfig } from 'ordering-components'
+import IosArrowDown from '@meronex/icons/ios/IosArrowDown'
+import FiClock from '@meronex/icons/fi/FiClock'
+import BiStoreAlt from '@meronex/icons/bi/BiStoreAlt'
+import VscTrash from '@meronex/icons/vsc/VscTrash'
+import { useOrder, useLanguage, useUtils, useEvent } from 'ordering-components'
 
 import { convertHoursToMinutes } from '../../utils'
 
@@ -31,7 +34,8 @@ export const BusinessItemAccordion = (props) => {
 
   const [orderState] = useOrder()
   const [, t] = useLanguage()
-  const [, { parsePrice }] = useConfig()
+  const [{ parsePrice }] = useUtils()
+  const [events] = useEvent()
 
   const [setActive, setActiveState] = useState('')
   const [setHeight, setHeightState] = useState('0px')
@@ -62,18 +66,23 @@ export const BusinessItemAccordion = (props) => {
   }
 
   useEffect(() => {
-    if (isCheckout && cartsLength > 1) {
-      toggleAccordion()
-    }
-  }, [location])
-
-  useEffect(() => {
     if (cartsLength === 1 || isCheckout) {
       activeAccordion(true)
     } else {
       activeAccordion(false)
     }
-  }, [orderState?.carts])
+  }, [isCheckout])
+
+  const handleAddedProduct = (product, cart) => {
+    if (cart?.business?.slug === business?.slug) {
+      activeAccordion(true)
+    }
+  }
+
+  useEffect(() => {
+    events.on('cart_product_added', handleAddedProduct)
+    return () => events.off('cart_product_added', handleAddedProduct)
+  }, [])
 
   return (
     <AccordionSection isClosed={isClosed}>
@@ -139,7 +148,7 @@ export const BusinessItemAccordion = (props) => {
                 <VscTrash color='#D81212' />
               </span>
               <span>
-                <IoIosArrowDown className={`${setRotate}`} />
+                <IosArrowDown className={`${setRotate}`} />
               </span>
             </>
           )}

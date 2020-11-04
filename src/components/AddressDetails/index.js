@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { TiPencil } from 'react-icons/ti'
+import TiPencil from '@meronex/icons/ti/TiPencil'
 import { AddressDetails as AddressDetailsController, useOrder, useLanguage, useSession } from 'ordering-components'
 
 import {
   AddressContainer,
   Header,
   Map,
-  Text
+  Text,
+  WrappMap
 } from './styles'
 
 import { Modal } from '../Modal'
@@ -53,7 +54,7 @@ const AddressDetailsUI = (props) => {
     <AddressContainer>
       <Header>
         <Text>
-          {userAddress}
+          <h4>{userAddress}</h4>
           {orderType === 1 &&
             <TiPencil
               onClick={() => handleClickAddress()}
@@ -62,9 +63,11 @@ const AddressDetailsUI = (props) => {
         </Text>
       </Header>
       {showMap && (
-        <Map>
-          <img src={googleMapsUrl} alt='google-maps-location' />
-        </Map>
+        <WrappMap>
+          <Map>
+            <img src={googleMapsUrl} alt='google-maps-location' />
+          </Map>
+        </WrappMap>
       )}
 
       <Modal

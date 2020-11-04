@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { TiPencil, VscTrash, IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/all'
+import TiPencil from '@meronex/icons/ti/TiPencil'
+import VscTrash from '@meronex/icons/vsc/VscTrash'
+import IosRadioButtonOn from '@meronex/icons/ios/IosRadioButtonOn'
+import IosRadioButtonOff from '@meronex/icons/ios/IosRadioButtonOff'
 
 import {
   AddressList as AddressListController,
@@ -19,9 +22,9 @@ import {
 import { Button } from '../../styles/Buttons'
 import { Modal } from '../Modal'
 import { AddressForm } from '../AddressForm'
-import { OrderTypeSelectorHeader } from '../OrderTypeSelectorHeader'
 import { Confirm } from '../Confirm'
 import { useTheme } from 'styled-components'
+import { scrollTo } from '../../utils'
 
 const AddressListUI = (props) => {
   const {
@@ -45,6 +48,8 @@ const AddressListUI = (props) => {
   const openAddress = (address) => {
     setCurAddress(address)
     setAddessOpen(true)
+    const container = window.document.getElementsByClassName('form_edit')[0]
+    scrollTo(container, 100, 500)
   }
 
   const handleSaveAddress = (address) => {
@@ -125,14 +130,14 @@ const AddressListUI = (props) => {
                 <AddressItem key={address.id}>
                   <div className='wrapAddress' onClick={() => handleSetAddress(address)}>
                     <span className='radio'>
-                      {address.address === orderState?.options?.address?.address ? <IoIosRadioButtonOn /> : <IoIosRadioButtonOff />}
+                      {address.address === orderState?.options?.address?.address ? <IosRadioButtonOn /> : <IosRadioButtonOff />}
                     </span>
                     <div className='address'>
                       <span>{address.address}</span>
                       <span>{address.internal_number} {address.zipcode}</span>
                     </div>
                   </div>
-                  <AddressItemActions>
+                  <AddressItemActions className='form'>
                     <a className={actionStatus.loading ? 'disabled' : ''} onClick={() => openAddress(address)}>
                       <TiPencil />
                     </a>
@@ -170,7 +175,6 @@ const AddressListUI = (props) => {
             title={t('ADDRESS', 'Address')}
             open={!popover && addressOpen}
             onClose={() => setAddessOpen(false)}
-            OrderTypeSelectorHeader={OrderTypeSelectorHeader}
           >
             <AddressForm
               useValidationFileds

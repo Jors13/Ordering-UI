@@ -163,7 +163,7 @@ const LoginFormUI = (props) => {
               })}
               onChange={(e) => hanldeChangeInput(e)}
             />
-            <RedirectLink>
+            <RedirectLink isPopup={isPopup}>
               <span>{t('FORGOT_YOUR_PASSWORD', 'Forgot your password?')}</span>
               {elementLinkToForgotPassword}
             </RedirectLink>

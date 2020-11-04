@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { BsChevronDown } from 'react-icons/bs'
+import {useOrder} from 'ordering-components'
+import BsChevronDown from '@meronex/icons/bs/BsChevronDown'
 
 import {
   Select as SelectInput,
@@ -24,6 +25,7 @@ export const Select = (props) => {
   const [selectedOption, setSelectedOption] = useState(defaultOption)
   const [value, setValue] = useState(defaultValue)
   const dropdownReference = useRef()
+  const [orderState] = useOrder()
 
   const handleSelectClick = (e) => {
     setOpen(!open)
@@ -58,7 +60,7 @@ export const Select = (props) => {
   }
 
   return (
-    <SelectInput onClick={handleSelectClick}>
+    <SelectInput onClick={handleSelectClick} disabled={orderState.loading}>
       {
         !selectedOption && <Selected>{placeholder || ''}<Chevron><BsChevronDown /></Chevron></Selected>
       }
@@ -66,7 +68,7 @@ export const Select = (props) => {
         selectedOption && (
           <Selected>
             <Header>
-              {selectedOption.showOnSelected || selectedOption.content}
+              {!orderState.loading ? selectedOption.showOnSelected || selectedOption.content : '...'}
             </Header>
             <Chevron>
               <BsChevronDown />

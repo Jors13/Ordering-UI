@@ -2,10 +2,10 @@ import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { BusinessReviews as BusinessReviewController, useLanguage } from 'ordering-components'
 
-import { ReviewOf, Content, ReviewContainer, Comments, Comment, Scores, ScoreDiv, SkeletonContainer } from './styles'
+import { ReviewOf, Content, ReviewContainer, Comments, ReviewsNotFound, Comment, Scores, ScoreDiv, SkeletonContainer } from './styles'
 import { Select } from '../../styles/Select'
 
-import { AiOutlineStar } from 'react-icons/ai'
+import AiOutlineStar from '@meronex/icons/ai/AiOutlineStar'
 
 const Score = ({ star, text }) => (
   <ScoreDiv>
@@ -82,7 +82,11 @@ export const BusinessReviewsUI = (props) => {
                     </div>
                   </SkeletonContainer>
                 ))}
+
               </>
+            )}
+            {!reviewsList.loading && reviewsList?.reviews.length === 0 && (
+              <ReviewsNotFound>{t('REVIEWS_NOT_FOUND', 'Reviews Not Found')}</ReviewsNotFound>
             )}
           </Content>
         </>

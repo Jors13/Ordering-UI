@@ -72,13 +72,17 @@ export const App = () => {
               <ScrollToTop>
                 <Switch>
                   <Route exact path='/home'>
-                    <HomePage />
+                    {
+                      orderStatus.options?.address?.location
+                        ? <Redirect to='/search' />
+                        : <HomePage />
+                    }
                   </Route>
                   <Route exact path='/'>
                     {
-                    orderStatus.options?.address?.location
-                      ? <Redirect to='/search' />
-                      : <HomePage />
+                      orderStatus.options?.address?.location
+                        ? <Redirect to='/search' />
+                        : <HomePage />
                     }
                   </Route>
                   <Route exact path='/signup'>
@@ -170,14 +174,17 @@ export const App = () => {
                   <Route exact path='/store/:store'>
                     <BusinessProductsList />
                   </Route>
-                  <Route exact path='/orders/:orderId'>
-                    {auth
-                      ? <OrderDetailsPage />
-                      : <Redirect to='/login' />}
-                  </Route>
                   <Route path='/checkout/:cartUuid?'>
                     {auth
                       ? <CheckoutPage />
+                      : <Redirect to='/login' />}
+                  </Route>
+                  <Route exact path='/:store'>
+                    <BusinessProductsList />
+                  </Route>
+                  <Route exact path='/orders/:orderId'>
+                    {auth
+                      ? <OrderDetailsPage />
                       : <Redirect to='/login' />}
                   </Route>
                   <Route exact path='/pages/:pageSlug'>

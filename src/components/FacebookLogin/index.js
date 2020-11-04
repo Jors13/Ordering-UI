@@ -3,7 +3,7 @@ import {
   FacebookLoginButton as FacebookLoginController,
   useLanguage
 } from 'ordering-components'
-import { FaFacebook } from 'react-icons/fa'
+import FaFacebook from '@meronex/icons/fa/FaFacebook'
 import { FacebookButton } from './styles'
 
 const FacebookLoginButtonUI = (props) => {
@@ -16,7 +16,7 @@ const FacebookLoginButtonUI = (props) => {
       onClick={() => handleFacebookLogin()}
     >
       <FaFacebook />
-      {t('LOGIN_WITH_FACEBOOK', 'Login with Facebook')}
+      <div>{t('LOGIN_WITH_FACEBOOK', 'Login with Facebook')}</div>
     </FacebookButton>
   )
 }

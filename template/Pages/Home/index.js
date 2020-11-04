@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLanguage } from 'ordering-components'
-import { AiOutlineAndroid, AiOutlineApple } from 'react-icons/ai'
+import AiOutlineAndroid from '@meronex/icons/ai/AiOutlineAndroid'
+import AiOutlineApple from '@meronex/icons/ai/AiOutlineApple'
 import { HomeHero } from '../../../src/components/HomeHero'
 import { useHistory } from 'react-router-dom'
 
@@ -49,22 +50,22 @@ export const HomePage = (props) => {
         </HomeTitle>
         <StepsBlock>
           <div>
-            <img src={locationSvg} />
+            <img src={locationSvg} alt='location' width='88' height='88' />
             <h3>{t('STEPS_ADDRESS', 'Add Address')}</h3>
           </div>
           <Line />
           <div>
-            <img src={businessSvg} />
+            <img src={businessSvg} alt='business' width='88' height='88' />
             <h3>{t('STEPS_BUSINESS', 'Select your Business')}</h3>
           </div>
           <Line />
           <div>
-            <img src={productSvg} />
+            <img src={productSvg} alt='product' width='88' height='88' />
             <h3>{t('STEPS_PRODUCT', 'Choose your Product')}</h3>
           </div>
           <Line />
           <div>
-            <img src={deliverySvg} width='88' height='88' />
+            <img src={deliverySvg} alt='delivery' width='88' height='88' />
             <h3>{t('STEPS_ARRIVE', 'Your package arrives')}</h3>
           </div>
         </StepsBlock>
@@ -72,7 +73,7 @@ export const HomePage = (props) => {
       <HomeSection>
         <ImageContent>
           <div>
-            <img src={burgerImage} alt='img' />
+            <img src={burgerImage} alt='img' width='391' height='400' />
           </div>
         </ImageContent>
         <TextContent>
@@ -104,7 +105,7 @@ export const HomePage = (props) => {
         </TextContent>
         <ImageContent>
           <div>
-            <img src={socialMedia} alt='img' />
+            <img src={socialMedia} alt='img' width='295' height='400' />
           </div>
         </ImageContent>
       </HomeSection>
@@ -112,11 +113,6 @@ export const HomePage = (props) => {
         <TextContent className='center'>
           <HomeFooter>
             <h2>{t('HOME_CONTENT_HERO', 'Something for Everyone')}</h2>
-            <div>
-              <Button color='primary'>
-                {t('HOME_CONTENT_HERO_BUTTON', 'View Menu')}
-              </Button>
-            </div>
           </HomeFooter>
         </TextContent>
       </HomeSection>

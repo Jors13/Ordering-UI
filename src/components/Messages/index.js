@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
-// import { DropDownCircleImage } from '../Dropdown/style'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   Messages as MessagesController,
-  useConfig,
+  useUtils,
   useLanguage,
   useSession
 } from 'ordering-components'
@@ -35,8 +34,10 @@ import {
 import { Image as ImageWithFallback } from '../Image'
 import { Input } from '../../styles/Inputs'
 import { Button } from '../../styles/Buttons'
-import { BsCardImage, IoIosSend, RiUser2Fill, FaUserAlt } from 'react-icons/all'
-import moment from 'moment' // REPLACE WITH TIMEAGO
+import BsCardImage from '@meronex/icons/bs/BsCardImage'
+import IosSend from '@meronex/icons/ios/IosSend'
+import RiUser2Fill from '@meronex/icons/ri/RiUser2Fill'
+import FaUserAlt from '@meronex/icons/fa/FaUserAlt'
 import { Alert } from '../Confirm'
 
 export const MessagesUI = (props) => {
@@ -56,8 +57,10 @@ export const MessagesUI = (props) => {
   const [, t] = useLanguage()
   const { handleSubmit, register, errors } = useForm()
   const [alertState, setAlertState] = useState({ open: false, content: [] })
+  const [load, setLoad] = useState(0)
   const [{ user }] = useSession()
-  const [, { parseDate }] = useConfig()
+  const [{ parseDate, getTimeAgo }] = useUtils()
+  const buttonRef = useRef(null)
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
@@ -81,10 +84,15 @@ export const MessagesUI = (props) => {
   }, [sendMessage])
 
   useEffect(() => {
-    if (!messages.loading) {
+    if (load < 3) {
       const chat = document.getElementById('chat')
       chat.scrollTop = chat.scrollHeight
     }
+  }, [load])
+
+  useEffect(() => {
+    const chat = document.getElementById('chat')
+    chat.scrollTop = chat.scrollHeight
   }, [messages.messages.length])
 
   const onChangeMessage = (e) => {
@@ -101,6 +109,7 @@ export const MessagesUI = (props) => {
     reader.readAsDataURL(files)
     reader.onload = () => {
       setImage(reader.result)
+      buttonRef.current.focus()
     }
     reader.onerror = error => {
       console.log(error)
@@ -241,12 +250,13 @@ export const MessagesUI = (props) => {
                   {t('ORDER_PLACED_FOR', 'Order placed for')} {' '}
                   <strong>{parseDate(order.created_at)}</strong> {' '}
                   {t('VIA', 'via')} <strong>{order.app_id}</strong>{' '}
-                  <TimeofSent>{moment.utc(order.created_at).fromNow()}</TimeofSent>
+                  <TimeofSent>{getTimeAgo(order.created_at)}</TimeofSent>
                 </BubbleConsole>
               </MessageConsole>
               {messages?.messages.map((message) => (
-                <MessageConsole key={message.id}>
+                <React.Fragment key={message.id}>
                   {message.type === 1 && (
+<<<<<<< HEAD
                     message.change?.attribute !== 'driver_id' ? (
                       <BubbleConsole>
                         {t('ORDER', 'Order')}
@@ -274,31 +284,57 @@ export const MessagesUI = (props) => {
                         <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
                       </BubbleConsole>
                     )
+=======
+                    <MessageConsole key={message.id}>
+                      {message.change?.attribute !== 'driver_id' ? (
+                        <BubbleConsole>
+                          {t('ORDER', 'Order')} {' '}
+                          <strong>{message.change.attribute}</strong> {}
+                          {t('CHANGED_FROM', 'Changed from')} {' '}
+                          {message.change.old !== null && (
+                            <>
+                              <strong>{t(getStatus(parseInt(message.change.old, 10)))}</strong> {' '}
+                            </>
+                          )}
+                          <> {t('TO', 'to')} {' '} <strong>{t(getStatus(parseInt(message.change.new, 10)))}</strong> </>
+                          <TimeofSent>{getTimeAgo(message.created_at)}</TimeofSent>
+                        </BubbleConsole>
+                      ) : (
+                        <BubbleConsole>
+                          <strong>{message.driver?.name} {' '} {message.driver?.lastname && message.driver.lastname}</strong>
+                          {t('WAS_ASSIGNED_AS_DRIVER', 'was assigned as driver')}
+                          {message.comment && (<><br /> {message.comment.length}</>)}
+                          <TimeofSent>{getTimeAgo(message.created_at)}</TimeofSent>
+                        </BubbleConsole>
+                      )}
+                    </MessageConsole>
+>>>>>>> c0b5929d248f48830e8a92ff64df7aa18fc03b88
                   )}
-                </MessageConsole>
-              ))}
-              {messages?.messages.map((message) => (
-                <React.Fragment key={message.id}>
                   {message.type === 2 && user.id === message.author_id && (
                     <MessageCustomer>
                       <BubbleCustomer>
                         <MyName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</MyName>
                         {message.comment}
-                        <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
+                        <TimeofSent>{getTimeAgo(message.created_at)}</TimeofSent>
                       </BubbleCustomer>
                     </MessageCustomer>
                   )}
                   {message.type === 3 && user.id === message.author_id && (
                     <MessageCustomer>
                       <BubbleCustomer name='image'>
+<<<<<<< HEAD
                         <MyName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</MyName>
                         <ChatImage><img src={message.source} /></ChatImage>
+=======
+                        <strong><MyName>{message.author.name} ({getLevel(message.author.level)})</MyName></strong>
+                        <ChatImage><img src={message.source} onLoad={() => setLoad(load + 1)} /></ChatImage>
+>>>>>>> c0b5929d248f48830e8a92ff64df7aa18fc03b88
                         {message.comment && (
                           <>
                             {message.comment}
                           </>
                         )}
-                        <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
+                        <TimeofSent>{getTimeAgo(message.created_at)}</TimeofSent>
                       </BubbleCustomer>
                     </MessageCustomer>
                   )}
@@ -307,21 +343,26 @@ export const MessagesUI = (props) => {
                       <BubbleBusines>
                         <PartnerName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</PartnerName>
                         {message.comment}
-                        <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
+                        <TimeofSent>{getTimeAgo(message.created_at)}</TimeofSent>
                       </BubbleBusines>
                     </MessageBusiness>
                   )}
                   {message.type === 3 && user.id !== message.author_id && (
                     <MessageBusiness>
                       <BubbleBusines name='image'>
+<<<<<<< HEAD
                         <PartnerName><strong>{message.author.name}</strong>({getLevel(message.author.level)})</PartnerName>
                         <ChatImage><img src={message.source} /></ChatImage>
+=======
+                        <strong><PartnerName>{message.author.name} ({getLevel(message.author.level)})</PartnerName></strong>
+                        <ChatImage><img src={message.source} onLoad={() => setLoad(load + 1)} /></ChatImage>
+>>>>>>> c0b5929d248f48830e8a92ff64df7aa18fc03b88
                         {message.comment && (
                           <>
                             {message.comment}
                           </>
                         )}
-                        <TimeofSent>{moment.utc(message.created_at).fromNow()}</TimeofSent>
+                        <TimeofSent>{getTimeAgo(message.created_at)}</TimeofSent>
                       </BubbleBusines>
                     </MessageBusiness>
                   )}
@@ -361,23 +402,39 @@ export const MessagesUI = (props) => {
               />
               <BsCardImage />
             </SendImage>
+<<<<<<< HEAD
           }
+=======
+          )}
+          {image && (
+            <WrapperDeleteImage>
+              <Button
+                circle
+                onClick={removeImage}
+                type='reset'
+              >
+                {t('X', 'X')}
+              </Button>
+            </WrapperDeleteImage>
+          )}
+>>>>>>> c0b5929d248f48830e8a92ff64df7aa18fc03b88
           <WrapperSendMessageButton>
             <Button
               color='primary'
               type='submit'
               disabled={sendMessage.loading || (message === '' && !image)}
+              ref={buttonRef}
             >
-              <IoIosSend />
+              <IosSend />
               {sendMessage.loading ? (
-                <>
+                <span>
                   {t('SENDING_MESSAGE', 'Sending...')}
-                </>
+                </span>
               )
                 : (
-                  <>
+                  <span>
                     {t('SEND', 'send')}
-                  </>)}
+                  </span>)}
             </Button>
           </WrapperSendMessageButton>
         </Send>
